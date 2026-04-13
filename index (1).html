@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Iman Khalaji</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --navy: #1B3A6B;
+    --navy-light: #2a5298;
+    --cream: #F7F4EF;
+    --dark: #111827;
+    --mid: #6B7280;
+    --light: #E5E7EB;
+    --accent: #C9A84C;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--dark); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(247,244,239,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--light);
+  }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--navy); text-decoration: none; letter-spacing: 0.04em; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-size: 0.85rem; color: var(--mid); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--navy); }
+
+  /* HERO */
+  #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 5rem; }
+  .hero-text { display: flex; flex-direction: column; justify-content: center; padding: 5rem 4rem; }
+  .hero-tag { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; }
+  .hero-name { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 5vw, 5.5rem); font-weight: 700; line-height: 1.05; color: var(--navy); margin-bottom: 1.5rem; }
+  .hero-sub { font-size: 1.05rem; color: var(--mid); line-height: 1.7; max-width: 440px; margin-bottom: 2.5rem; font-weight: 300; }
+  .hero-cta { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+  .btn-primary { background: var(--navy); color: #fff; padding: 0.85rem 2rem; border-radius: 2px; text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em; transition: background 0.2s, transform 0.2s; }
+  .btn-primary:hover { background: var(--navy-light); transform: translateY(-1px); }
+  .btn-outline { border: 1.5px solid var(--navy); color: var(--navy); padding: 0.82rem 1.8rem; border-radius: 2px; text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em; transition: all 0.2s; }
+  .btn-outline:hover { background: var(--navy); color: #fff; }
+
+  .hero-visual { background: var(--navy); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 5rem 3rem; position: relative; overflow: hidden; }
+  .hero-visual::before { content: ""; position: absolute; top: -30%; right: -20%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%); border-radius: 50%; }
+  .hero-photo { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent); margin-bottom: 2rem; }
+  .hero-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; width: 100%; max-width: 380px; }
+  .stat-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 2rem 1.5rem; text-align: center; transition: background 0.2s; }
+  .stat-card:hover { background: rgba(255,255,255,0.09); }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: 0.5rem; }
+  .stat-label { font-size: 0.72rem; color: rgba(255,255,255,0.6); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; line-height: 1.4; }
+
+  /* SECTIONS */
+  section { padding: 6rem 4rem; }
+  .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 700; color: var(--navy); margin-bottom: 3rem; line-height: 1.15; }
+
+  /* ABOUT */
+  #about { background: #fff; }
+  .about-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: start; max-width: 1100px; }
+  .about-headline { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--navy); line-height: 1.35; margin-bottom: 1.5rem; }
+  .about-body { font-size: 0.97rem; color: var(--mid); line-height: 1.8; font-weight: 300; margin-bottom: 1.2rem; }
+  .skill-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+  .chip { background: var(--cream); border: 1px solid var(--light); padding: 0.35rem 0.9rem; border-radius: 2px; font-size: 0.78rem; color: var(--navy); font-weight: 500; letter-spacing: 0.04em; }
+
+  /* RESEARCH */
+  #research { background: var(--cream); }
+  .research-card { background: #fff; border: 1px solid var(--light); padding: 2.5rem; margin-bottom: 1.5rem; border-left: 4px solid var(--navy); transition: transform 0.2s, box-shadow 0.2s; max-width: 900px; }
+  .research-card:hover { transform: translateX(4px); box-shadow: 0 4px 24px rgba(27,58,107,0.08); }
+  .research-tag { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+  .research-title { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--navy); margin-bottom: 0.8rem; line-height: 1.3; }
+  .research-desc { font-size: 0.93rem; color: var(--mid); line-height: 1.7; font-weight: 300; margin-bottom: 1.2rem; }
+  .tool-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.2rem; }
+  .tool-tag { background: var(--cream); border: 1px solid var(--light); padding: 0.25rem 0.75rem; border-radius: 2px; font-size: 0.75rem; color: var(--navy); font-weight: 500; }
+  .research-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem; }
+  .research-link { font-size: 0.82rem; color: var(--navy); text-decoration: none; font-weight: 500; border-bottom: 1px solid var(--accent); padding-bottom: 1px; transition: color 0.2s; }
+  .research-link:hover { color: var(--accent); }
+
+  /* EXPERIENCE */
+  #experience { background: var(--navy); color: #fff; }
+  #experience .section-title { color: #fff; }
+  .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 1100px; }
+  .exp-card { border: 1px solid rgba(255,255,255,0.12); padding: 2rem; transition: background 0.2s; }
+  .exp-card:hover { background: rgba(255,255,255,0.05); }
+  .exp-date { font-size: 0.72rem; color: var(--accent); font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.6rem; }
+  .exp-role { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 0.3rem; }
+  .exp-org { font-size: 0.85rem; color: rgba(255,255,255,0.55); margin-bottom: 0.8rem; font-style: italic; }
+  .exp-desc { font-size: 0.88rem; color: rgba(255,255,255,0.7); line-height: 1.65; font-weight: 300; }
+
+  /* LEADERSHIP */
+  #leadership { background: #fff; }
+  .lead-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1100px; }
+  .lead-card { background: var(--cream); border: 1px solid var(--light); padding: 1.8rem; border-top: 3px solid var(--accent); }
+  .lead-role { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.3rem; }
+  .lead-org { font-size: 0.82rem; color: var(--mid); margin-bottom: 0.4rem; font-weight: 500; }
+  .lead-date { font-size: 0.72rem; color: var(--accent); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.8rem; }
+  .lead-desc { font-size: 0.85rem; color: var(--mid); line-height: 1.6; font-weight: 300; }
+
+  /* SKILLS */
+  #skills { background: var(--cream); }
+  .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; max-width: 1100px; }
+  .skill-block h3 { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--navy); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent); display: inline-block; }
+  .skill-list { list-style: none; }
+  .skill-list li { font-size: 0.88rem; color: var(--mid); padding: 0.3rem 0; border-bottom: 1px solid var(--light); font-weight: 300; }
+
+  /* CONTACT */
+  #contact { background: var(--navy); text-align: center; padding: 6rem 4rem; }
+  #contact .section-label { color: rgba(201,168,76,0.9); }
+  #contact .section-title { color: #fff; margin-bottom: 1rem; }
+  .contact-sub { font-size: 1rem; color: rgba(255,255,255,0.6); margin-bottom: 2.5rem; font-weight: 300; }
+  .contact-links { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+  .contact-link { display: flex; align-items: center; gap: 0.5rem; font-size: 0.88rem; color: #fff; text-decoration: none; font-weight: 500; padding: 0.7rem 1.5rem; border: 1.5px solid rgba(255,255,255,0.4); border-radius: 2px; transition: all 0.2s; letter-spacing: 0.04em; }
+  .contact-link:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+
+  /* FOOTER */
+  footer { background: var(--dark); color: rgba(255,255,255,0.4); text-align: center; padding: 2rem; font-size: 0.8rem; letter-spacing: 0.06em; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-up { opacity: 0; animation: fadeUp 0.7s ease forwards; }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.25s; }
+  .delay-3 { animation-delay: 0.4s; }
+  .delay-4 { animation-delay: 0.55s; }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.2rem; }
+    #hero { grid-template-columns: 1fr; }
+    .hero-visual { display: none; }
+    .hero-text { padding: 4rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .exp-grid { grid-template-columns: 1fr; }
+    .lead-grid { grid-template-columns: 1fr 1fr; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    section { padding: 4rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Iman Khalaji</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#leadership">Leadership</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-text">
+    <p class="hero-tag fade-up delay-1">Accounting · Finance · Data Science</p>
+    <h1 class="hero-name fade-up delay-2">Iman<br/>Khalaji</h1>
+    <p class="hero-sub fade-up delay-3">
+      BCom student at Rotman Commerce, University of Toronto — specialising in Accounting with a focus on finance, empirical research, and data-driven decision making.
+    </p>
+    <div class="hero-cta fade-up delay-4">
+      <a href="#research" class="btn-primary">View Research</a>
+      <a href="Iman_Khalaji_resume__1_.pdf" target="_blank" class="btn-outline">Download Resume</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <img src="Iman Khalaji digital photo.jpg" alt="Iman Khalaji" class="hero-photo fade-up delay-1"/>
+    <div class="hero-stat-grid fade-up delay-2">
+      <div class="stat-card">
+        <div class="stat-num">400K+</div>
+        <div class="stat-label">Crime records analysed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">+4.3%</div>
+        <div class="stat-label">Alpha vs S&amp;P 500</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">Top 24</div>
+        <div class="stat-label">BMO Case Competition nationally</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">$322K</div>
+        <div class="stat-label">Realized gain — Unity short</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About Me</div>
+  <div class="about-grid">
+    <div>
+      <h2 class="about-headline">Turning messy real-world data into decisions.</h2>
+    </div>
+    <div>
+      <p class="about-body">
+        I'm a second-year BCom student at the Rotman School of Management, specialising in Accounting with coursework in Finance, Economics, and Data Science. My work sits at the intersection of empirical economics, machine learning, and corporate finance.
+      </p>
+      <p class="about-body">
+        My research on COVID-19 and crime in Boston applied OLS regression, spatial GIS analysis, decision trees, and random forests to a dataset of 400,000+ police incidents — finding that mobility restrictions, not economic distress, drove the short-run decline in crime. I'm motivated by questions where data can challenge conventional wisdom.
+      </p>
+      <p class="about-body">
+        Outside research, I manage a simulated investment portfolio through Alpha Capital Fund, advise on strategy through Consult for Impact (Rotman Commerce), lead the Wealth Management Club's outreach at UofT, and hold Bloomberg Market Concepts and Bloomberg ESG certifications.
+      </p>
+      <div class="skill-chips">
+        <span class="chip">Python</span>
+        <span class="chip">pandas</span>
+        <span class="chip">scikit-learn</span>
+        <span class="chip">GeoPandas</span>
+        <span class="chip">statsmodels</span>
+        <span class="chip">OLS Regression</span>
+        <span class="chip">Random Forest</span>
+        <span class="chip">DCF Valuation</span>
+        <span class="chip">Financial Modelling</span>
+        <span class="chip">Excel (Advanced)</span>
+        <span class="chip">SQL</span>
+        <span class="chip">Bloomberg BMC</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="section-label">Research &amp; Projects</div>
+  <h2 class="section-title">Selected Work</h2>
+
+  <div class="research-card">
+    <div class="research-tag">Economics · Data Science · ECO225 · 2026</div>
+    <div class="research-title">Mobility, Economic Conditions, and Crime During COVID-19: Evidence from Boston</div>
+    <div class="research-desc">
+      Using 400,000+ Boston Police Department incident records (2018–2022) merged with FRED labor market data and Google Community Mobility Reports, this paper tests whether mobility restrictions or economic distress better explain the sharp decline in crime at the onset of COVID-19 lockdowns. OLS regressions, regression trees, and a 200-estimator random forest all converge on the same conclusion: the time trend and mobility disruption dominate, while the COVID dummy alone has near-zero predictive power — consistent with routine activity theory over the classic economic distress channel.
+    </div>
+    <div class="tool-row">
+      <span class="tool-tag">pandas</span>
+      <span class="tool-tag">NumPy</span>
+      <span class="tool-tag">statsmodels (OLS)</span>
+      <span class="tool-tag">scikit-learn</span>
+      <span class="tool-tag">GeoPandas</span>
+      <span class="tool-tag">matplotlib</span>
+      <span class="tool-tag">Web Scraping</span>
+      <span class="tool-tag">Random Forest</span>
+      <span class="tool-tag">Decision Tree</span>
+      <span class="tool-tag">GIS Mapping</span>
+    </div>
+    <div class="research-links">
+      <a href="Boston_Crime_COVID_Paper_Iman_Khalaji.pdf" target="_blank" class="research-link">↗ Full Paper</a>
+      <a href="ECO225_Final_Slides_Iman_Khalaji (1) (1).pdf" target="_blank" class="research-link">↗ Presentation Slides</a>
+      <a href="Final Project submission ready ECO225.pdf" target="_blank" class="research-link">↗ Final Submission</a>
+    </div>
+  </div>
+
+  <div class="research-card">
+    <div class="research-tag">Finance · Portfolio Management · 2026</div>
+    <div class="research-title">Alpha Capital Fund — Portfolio Management &amp; Investment Analysis</div>
+    <div class="research-desc">
+      Managed a simulated $10M USD portfolio benchmarked against the S&amp;P 500, executing 75+ trades across equities, short positions, options, futures, and foreign exchange. Built and defended investment theses using DCF valuation, options pricing, and macroeconomic analysis. Generated +4.3% alpha versus the benchmark, including a +$322K realized gain on a Unity short position based on deteriorating fundamentals and sector rotation analysis.
+    </div>
+    <div class="tool-row">
+      <span class="tool-tag">DCF Valuation</span>
+      <span class="tool-tag">Options Pricing</span>
+      <span class="tool-tag">Macro Analysis</span>
+      <span class="tool-tag">Equities</span>
+      <span class="tool-tag">Short Selling</span>
+      <span class="tool-tag">FX</span>
+      <span class="tool-tag">Portfolio Theory</span>
+      <span class="tool-tag">Excel</span>
+    </div>
+  </div>
+
+  <div class="research-card">
+    <div class="research-tag">Finance · Strategy · 2025</div>
+    <div class="research-title">BMO Wealth Management Case Competition — Top 24 Finalist Nationally</div>
+    <div class="research-desc">
+      Selected as a Top 24 team nationally to design a growth strategy for BMO Private Wealth. Conducted market sizing, customer segmentation, and financial viability analysis to propose a "Founder's Index ETF" targeting entrepreneurial investors. Presented recommendations directly to BMO executives and received feedback on strategic clarity and storytelling.
+    </div>
+    <div class="tool-row">
+      <span class="tool-tag">Market Sizing</span>
+      <span class="tool-tag">Customer Segmentation</span>
+      <span class="tool-tag">Financial Modelling</span>
+      <span class="tool-tag">Strategy</span>
+      <span class="tool-tag">ETF Design</span>
+    </div>
+  </div>
+
+  <div class="research-card">
+    <div class="research-tag">Finance · Capital Markets · 2025</div>
+    <div class="research-title">Capital Budgeting Analysis: Tricky Toys — RSM230 Financial Markets</div>
+    <div class="research-desc">
+      Built an 8-year NPV/IRR capital budgeting model evaluating a $32M product launch, with base, downside, and sensitivity scenarios. Identified key value drivers and risk factors improving projected ROI by 18% and reducing risk exposure by 22%.
+    </div>
+    <div class="tool-row">
+      <span class="tool-tag">NPV / IRR</span>
+      <span class="tool-tag">Sensitivity Analysis</span>
+      <span class="tool-tag">Excel</span>
+      <span class="tool-tag">Scenario Modelling</span>
+      <span class="tool-tag">Risk Assessment</span>
+    </div>
+  </div>
+
+  <div class="research-card">
+    <div class="research-tag">Marketing · Strategy · 2025</div>
+    <div class="research-title">Market Entry Strategy: Drinkworks — Principles of Marketing</div>
+    <div class="research-desc">
+      Analyzed entry strategies for a beverage appliance in the $23B U.S. alcohol market. Conducted competitor analysis and developed a multichannel distribution strategy projected to improve market penetration by 25% within two years.
+    </div>
+    <div class="tool-row">
+      <span class="tool-tag">Market Sizing</span>
+      <span class="tool-tag">Competitive Analysis</span>
+      <span class="tool-tag">Distribution Strategy</span>
+      <span class="tool-tag">Positioning</span>
+    </div>
+    <div class="research-links">
+      <a href="Drink Works Case Group 3.pdf" target="_blank" class="research-link">↗ View Case</a>
+    </div>
+  </div>
+
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Experience</div>
+  <h2 class="section-title">Where I've Worked</h2>
+  <div class="exp-grid">
+    <div class="exp-card">
+      <div class="exp-date">Jan 2026 – Present</div>
+      <div class="exp-role">Strategy Analyst</div>
+      <div class="exp-org">Consult for Impact · Rotman Commerce · Toronto, ON</div>
+      <div class="exp-desc">Advising WET (Water Experience Toronto) on financial feasibility and organizational strategy. Conducting market research, demand forecasting, and financial modelling to support data-driven recommendations for municipal and industry stakeholders.</div>
+    </div>
+    <div class="exp-card">
+      <div class="exp-date">Jan 2026 – Present</div>
+      <div class="exp-role">Director of Outreach</div>
+      <div class="exp-org">Wealth Management Club · University of Toronto · Toronto, ON</div>
+      <div class="exp-desc">Leading partnership development and outreach for a newly established student organization focused on wealth management education. Building relationships with finance professionals and coordinating industry programming and events.</div>
+    </div>
+    <div class="exp-card">
+      <div class="exp-date">Sep – Dec 2025</div>
+      <div class="exp-role">Data Analyst</div>
+      <div class="exp-org">Mercor · Remote · San Francisco, USA</div>
+      <div class="exp-desc">Analyzed and validated large-scale datasets for AI/ML model development across multiple client engagements. Applied structured QA procedures and identified patterns and inconsistencies to ensure accuracy and reliability of client deliverables.</div>
+    </div>
+    <div class="exp-card">
+      <div class="exp-date">May – Aug 2025</div>
+      <div class="exp-role">Finance &amp; Operations Intern</div>
+      <div class="exp-org">Tadbir Sahel Pars · Remote · Tehran, Iran</div>
+      <div class="exp-desc">Prepared financial reports and supporting schedules, reconciling invoices and expense submissions for accuracy. Performed variance analysis and budget forecasting, and built Excel dashboards to track project cash flows and cost variances.</div>
+    </div>
+  </div>
+</section>
+
+<!-- LEADERSHIP -->
+<section id="leadership">
+  <div class="section-label">Leadership &amp; Community</div>
+  <h2 class="section-title">Beyond the Classroom</h2>
+  <div class="lead-grid">
+    <div class="lead-card">
+      <div class="lead-date">Sep 2025 – Present</div>
+      <div class="lead-role">Treasurer</div>
+      <div class="lead-org">Sorbara House · St. Michael's College, UofT</div>
+      <div class="lead-desc">Managing house finances, reconciling expenditures, and preparing budget summaries to support community planning and financial reporting.</div>
+    </div>
+    <div class="lead-card">
+      <div class="lead-date">Sep 2025 – Present</div>
+      <div class="lead-role">House Council Member &amp; Orientation Leader</div>
+      <div class="lead-org">St. Michael's College · University of Toronto</div>
+      <div class="lead-desc">Representing resident interests on house council and supporting incoming students during orientation — facilitating a welcoming transition to university life.</div>
+    </div>
+    <div class="lead-card">
+      <div class="lead-date">Sep 2022 – Jun 2024</div>
+      <div class="lead-role">House Prefect &amp; Discipline Committee</div>
+      <div class="lead-org">Upper Canada College · Toronto</div>
+      <div class="lead-desc">Selected as one of six from 1,200+ students to adjudicate disciplinary cases alongside faculty. Mentored boarding students and served as a trusted point of support within the residential community.</div>
+    </div>
+    <div class="lead-card">
+      <div class="lead-date">Sep 2022 – Jun 2024</div>
+      <div class="lead-role">School Ambassador</div>
+      <div class="lead-org">Upper Canada College · Toronto</div>
+      <div class="lead-desc">Represented UCC to prospective students and families during campus tours and open days, delivering engaging information about school life and programs.</div>
+    </div>
+    <div class="lead-card">
+      <div class="lead-date">Jul – Aug 2024</div>
+      <div class="lead-role">Summer Camp Counselor</div>
+      <div class="lead-org">Upper Canada College · Toronto</div>
+      <div class="lead-desc">Supervised and mentored campers aged 6 to 8 in a structured daily program, ensuring safety, positive participation, and an inclusive environment.</div>
+    </div>
+    <div class="lead-card">
+      <div class="lead-date">Jan 2023 – Jun 2024</div>
+      <div class="lead-role">Library Assistant &amp; Community Service</div>
+      <div class="lead-org">Upper Canada College · Toronto</div>
+      <div class="lead-desc">Completed 100+ CAS hours across library operations, charity fundraising (Canadian Red Cross, Relay for Life), environmental clean-ups, and community initiatives.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Technical Skills</div>
+  <h2 class="section-title">Toolkit</h2>
+  <div class="skills-grid">
+    <div class="skill-block">
+      <h3>Data Science</h3>
+      <ul class="skill-list">
+        <li>pandas · NumPy</li>
+        <li>scikit-learn (ML)</li>
+        <li>statsmodels (OLS)</li>
+        <li>GeoPandas (GIS)</li>
+        <li>matplotlib</li>
+        <li>Web Scraping</li>
+      </ul>
+    </div>
+    <div class="skill-block">
+      <h3>ML Methods</h3>
+      <ul class="skill-list">
+        <li>OLS / Panel Regression</li>
+        <li>Decision Trees</li>
+        <li>Random Forest</li>
+        <li>Feature Importance</li>
+        <li>GIS / Spatial Mapping</li>
+        <li>Data Cleaning &amp; Merging</li>
+      </ul>
+    </div>
+    <div class="skill-block">
+      <h3>Finance</h3>
+      <ul class="skill-list">
+        <li>Financial Modelling</li>
+        <li>DCF Valuation</li>
+        <li>Variance Analysis</li>
+        <li>Capital Budgeting</li>
+        <li>Portfolio Analysis</li>
+        <li>Market Research</li>
+      </ul>
+    </div>
+    <div class="skill-block">
+      <h3>Tools &amp; Certs</h3>
+      <ul class="skill-list">
+        <li>Excel (Advanced)</li>
+        <li>SQL · Python</li>
+        <li>PowerPoint · Canva</li>
+        <li>Bloomberg BMC &amp; ESG</li>
+        <li>English (fluent)</li>
+        <li>Persian (native)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Get in Touch</div>
+  <h2 class="section-title">Let's Connect</h2>
+  <p class="contact-sub">Open to internships, finance &amp; accounting roles, research collaborations, and coffee chats.</p>
+  <div class="contact-links">
+    <a href="mailto:iman.khalaji@mail.utoronto.ca" class="contact-link">✉ Email</a>
+    <a href="https://www.linkedin.com/in/iman-khalaji-59836a2b3" target="_blank" class="contact-link">↗ LinkedIn</a>
+    <a href="Iman_Khalaji_resume__1_.pdf" target="_blank" class="contact-link">↓ Resume</a>
+  </div>
+</section>
+
+<footer>
+  © 2026 Iman Khalaji · Rotman Commerce, University of Toronto
+</footer>
+
+</body>
+</html>
